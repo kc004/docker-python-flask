@@ -14,7 +14,7 @@ python, flask, redis and docker
 Clone the source locally:
 
 ```
-$ https://github.com/kc004/docker-python-flask.git
+$ git clone https://github.com/kc004/docker-python-flask.git
 $ cd docker-python-flask
 ```
 
