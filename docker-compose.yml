@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web1:
+    environment:
+      - CONSUL_LOCAL_CONFIG={"addresses":{"dns":"0.0.0.0","http":"0.0.0.0"}}
+      - GET_HOSTS_FROM=dns
+    build: ./app1/
+    ports:
+     - "5000:5000"
+    image: web1
+    depends_on:
+     - redis
+    labels:
+      kompose.service.type: LoadBalancer
+  web2:
+    environment:
+      - CONSUL_LOCAL_CONFIG={"addresses":{"dns":"0.0.0.0","http":"0.0.0.0"}}
+      - GET_HOSTS_FROM=dns
+    build: ./app2/
+    ports:
+     - "5001:5000"
+    image: web2
+    depends_on:
+     - redis
+    labels:
+      kompose.service.type: LoadBalancer
+  redis:
+    environment:
+      - CONSUL_LOCAL_CONFIG={"addresses":{"dns":"0.0.0.0","http":"0.0.0.0"}}
+      - GET_HOSTS_FROM=dns
+    image: "redis:alpine"
+    ports:
+     - "6379:6379"
+    volumes:
+     - /data:/data
